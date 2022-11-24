@@ -2,6 +2,7 @@ import java.util.*;
 
 public class App extends BadgeAccess {
     public static void main(String[] args) throws Exception {
+        // Adding all questions from here - need to figure out a good way
         createBadges();
     }
 }
