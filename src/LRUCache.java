@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LRUCache {
 
+    public HashMap<Integer, Node> hm;
     class Node {
         int key;
         int val;
@@ -14,8 +15,7 @@ public class LRUCache {
             this.val = val;
         }
     }
-
-    HashMap<Integer, Node> hm;
+    
     Node head;
     Node tail;
     int cache_capacity;
