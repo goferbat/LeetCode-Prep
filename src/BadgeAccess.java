@@ -1,14 +1,6 @@
 import java.util.*;
 
-public class App extends BadgeAccess {
-    public static void main(String[] args) throws Exception {
-        // Adding all questions from here - need to figure out a good way
-        createBadges();
-    }
-}
-
-
-class BadgeAccess {
+public class BadgeAccess {
 
     // Problem: We are working on a security system for a badged-access room in our company's building.
     // Given an ordered list of employees who used their badge to enter or exit the room, write a function that returns two collections:
@@ -72,6 +64,11 @@ class BadgeAccess {
             if (name[1].equals("enter")) ret2.add(name[0]);
         }
         return ret;
+    }
+
+    public static void main(String[] args) throws Exception {
+        // Adding all questions from here - need to figure out a good way
+        createBadges();
     }
 
 }
