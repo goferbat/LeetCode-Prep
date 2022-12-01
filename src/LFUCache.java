@@ -68,7 +68,9 @@ public class LFUCache {
         
     }
 
+    // NEED TO SOMEHOW MAKE THIS O(1)
     public void add(Node node) { // adding node based on count frequency
+        // this is O(n)
         Node dummyHead = head.next;
         while (dummyHead != null) {
             if (node.count >= dummyHead.count) {
@@ -81,13 +83,6 @@ public class LFUCache {
             }
             dummyHead = dummyHead.next; 
         }
-
-        Node pointerHead = head;
-        while (pointerHead != null) {
-            System.out.println(pointerHead.key + ", " + pointerHead.val + ", " + pointerHead.count + "\n");
-            pointerHead = pointerHead.next;
-        }
-
     }
 
     public void remove(Node node) {
@@ -97,28 +92,16 @@ public class LFUCache {
     
     public static void main (String args[]) {
         LFUCache lfu = new LFUCache(2);
-        // lfu.put(3, 1);
-        // lfu.put(2, 1);
-        // lfu.put(2, 2);
-        // lfu.put(4, 4);
-        // assertEquals(lfu.get(2), 2);      // return 1
-
         lfu.put(1, 1);   // cache=[1,_], cnt(1)=1
         lfu.put(2, 2);   // cache=[2,1], cnt(2)=1, cnt(1)=1
         assertEquals(lfu.get(1), 1);      // return 1
-                        // cache=[1,2], cnt(2)=1, cnt(1)=2
         lfu.put(3, 3);   // 2 is the LFU key because cnt(2)=1 is the smallest, invalidate 2.
-                        // cache=[3,1], cnt(3)=1, cnt(1)=2
         
         assertEquals(lfu.get(2), -1);   
         assertEquals(lfu.get(3), 3);   
-                        // cache=[3,1], cnt(3)=2, cnt(1)=2
         lfu.put(4, 4);   // Both 1 and 3 have the same cnt, but 1 is LRU, invalidate 1.
-                        // cache=[4,3], cnt(4)=1, cnt(3)=2
         assertEquals(lfu.get(1), -1);   
         assertEquals(lfu.get(3), 3);   
-                        // cache=[3,4], cnt(4)=1, cnt(3)=3
         assertEquals(lfu.get(4), 4);   
-                        // cache=[4,3], cnt(4)=2, cnt(3)=3
     }
 }
