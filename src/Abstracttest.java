@@ -45,7 +45,7 @@ class Chihuahua extends Dog {
     @Override
     void bark () {
         System.out.println(getName() + "made a tiny bark!");
-    }
+    } 
     
 }
 
