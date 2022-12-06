@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.*;
 
 import enums.Gender;
@@ -38,6 +39,12 @@ public class StreamTesting {
 
             List<Dog> currentDogs = getDogs();
 
+            Integer top3dogAgesSummed = currentDogs.stream()
+                                                .map(dog -> dog.getAge())
+                                                .sorted(Comparator.reverseOrder())
+                                                .limit(3)
+                                                .mapToInt(Integer::intValue).sum();
+
             // FILTER
             List<Dog> age2Dogs = currentDogs.stream().filter(dog -> dog.getAge() == 2).collect(Collectors.toList());
             
@@ -56,7 +63,7 @@ public class StreamTesting {
 
             // REVERSE ORDER SORT
             List<Dog> reverseSortedDogs = currentDogs.stream()
-                .sorted(Comparator.comparing(Dog::getAge).thenComparing(Dog::getGender).reversed())
+                .sorted(Comparator.comparing(Dog::getAge).reversed())
                 .collect(Collectors.toList());
 
             System.out.println("REVERSE SORTED DOGS BASED ON NAME");
@@ -110,22 +117,22 @@ public class StreamTesting {
 
             //CHAINING
 
-            Optional<String> oldestFemaleDog = currentDogs.stream()
+            String oldestFemaleDog = currentDogs.stream()
             .filter(dog -> dog.getGender().equals(Gender.FEMALE))
             .max(Comparator.comparing(Dog::getAge))
-            .map(Dog::getName);
+            .map(Dog::getName).get();
 
             System.out.print("Oldest female dog is : ");
-            oldestFemaleDog.ifPresent(System.out::println);
+            System.out.println(oldestFemaleDog);
             System.out.println("\n");
 
 
-            List<Integer> maleDogsAgeTwice = currentDogs.stream()
+            long maleDogsAgeTwice = currentDogs.stream()
                 .filter(dog -> dog.getGender().equals(Gender.MALE))
                 .map(dog -> dog.getAge()*dog.getAge())
-                .collect(Collectors.toList());
+                .count();
 
-            int count = 0;
+            // int count = 0;
 
             // currentDogs.stream()
             // .filter(dog -> dog.gender.equals(Gender.FEMALE))
@@ -144,6 +151,17 @@ public class StreamTesting {
                 dog.forEach(System.out::println);
                 System.out.println();
             });
+
+            Function<Dog, Integer> multby10 = number -> number.getAge() * 10;
+            currentDogs.stream()
+            .filter(dog -> dog.getAge() < 10)
+            .map(multby10).collect(Collectors.toList());
+
+            HashMap<Integer,Integer> hm = new HashMap<>();
+            Integer i = hm.values().stream().max(Comparator.naturalOrder()).get();
+            Integer k = hm.values().stream().sorted(Comparator.reverseOrder()).limit(10).mapToInt(Integer::intValue).sum();
+            
+            Integer ko = k.stream().mapToInt(Integer::intValue).sum();
 
              
         }
