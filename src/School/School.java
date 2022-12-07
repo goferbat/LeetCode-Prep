@@ -16,9 +16,13 @@ class School {
 
     public static void main (String args[]) {
 
+        Scanner scanner = new Scanner(System.in);
+        Student student2 = new Student(scanner.nextLine(), new ArrayList<>(), scanner.nextInt(), new ArrayList<>(), new HashMap<Class,Grade>());
+
         teachers = Teacher.createTeachers();
         classes = Class.createClasses(teachers); // Create a list of classes
         students = Student.createStudents(classes); // Create a list of Students
+        students.add(student2);
         Class.AddRandomClasses(students, classes); // Adding random number of classes to each student
 
         rollCall();
